@@ -1,1 +1,1 @@
-# Java--Quiz-na-socketach
+# Java-Client-Server-Quiz
