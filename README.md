@@ -8,6 +8,8 @@ Your server.config file should look similar to this:
 
 When you first run server app you have to create your database and run createTable() and fillTable() methods from CreateDatabase class.
 
+# Run application
+
 Then you need to run server and wait till 2 players connect. Server fetches questions from database and shuffle them. 
 When first player connects window will pop up and he will have to wait for second player.
 
