@@ -130,7 +130,7 @@ public class Player extends JFrame {
 
                 System.out.println("Question nr #" + questionNumber + " --> " + questions.get(questionNumber).getQuestion() + " --> " + answear_b);
 
-                if(questions.get(questionNumber).getAnswear() == answear_b) {
+                if(questions.get(questionNumber).getAnswer() == answear_b) {
                     // System.out.println("Question nr #" + questionNumber + " --> " + questions.get(questionNumber).getQuestion());
                     myPoints += 1;
                     System.out.println("My points: " + myPoints);
@@ -165,15 +165,15 @@ public class Player extends JFrame {
 
 
     public void updateTurn(){
-        boolean answear = csc.receiveAnswear();
-        message.setText("Ur enemy answered" + answear + " your turn.");
+        boolean answer = csc.receiveAnswer();
+        message.setText("Ur enemy answered" + answer + " your turn.");
         messageQ.setText(questions.get(questionNumber).getQuestion());
 
 
-        System.out.println("Question nr #" + questionNumber + " --> " + questions.get(questionNumber).getQuestion() + " --> " + answear);
+        System.out.println("Question nr #" + questionNumber + " --> " + questions.get(questionNumber).getQuestion() + " --> " + answer);
 
 
-        if(questions.get(questionNumber).getAnswear() == answear) {
+        if(questions.get(questionNumber).getAnswer() == answer) {
             //  System.out.println("Question nr #" + questionNumber + " --> " + questions.get(questionNumber).getQuestion());
             enemyPoints += 1;
             System.out.println("Your enemy has: " + enemyPoints + " points");
@@ -256,11 +256,11 @@ public class Player extends JFrame {
         }
 
 
-        public void sendAnswer(boolean answear)
+        public void sendAnswer(boolean answer)
         {
             try {
-                objectOutputStream.writeBoolean(answear);
-                System.out.println("Ive sent answear: " + answear);
+                objectOutputStream.writeBoolean(answer);
+                System.out.println("Ive sent answer: " + answer);
                 objectOutputStream.flush();
             } catch (IOException ex) {
                 System.out.println("IOExecption from sendButtonNum() ");
@@ -268,16 +268,16 @@ public class Player extends JFrame {
         }
 
 
-        public boolean receiveAnswear()
+        public boolean receiveAnswer()
         {
-            boolean answear = false;
+            boolean answer = false;
             try{
-                answear = objectInputStream.readBoolean();
-                System.out.println("Player #" + otherPlayer + " answeared: " + answear + " --> " + questionNumber);
+                answer = objectInputStream.readBoolean();
+                System.out.println("Player #" + otherPlayer + " answered: " + answer + " --> " + questionNumber);
             }catch (IOException ex) {
                 System.out.println("IOEception from receiveButtonNum()");
             }
-            return answear;
+            return answer;
         }
 
 

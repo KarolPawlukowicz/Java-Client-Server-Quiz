@@ -3,10 +3,18 @@ package com.company;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 public class GameServer {
+    private Connection conn;
+    private Properties properties;
+    private String propertiesFileName;
+    private String conncetionString;
+
     private ServerSocket ss;
     private int numPlayers;
 
@@ -25,27 +33,42 @@ public class GameServer {
     private boolean p2went;
 
 
-    public GameServer() throws IOException {
+    public GameServer() throws IOException, SQLException {
         System.out.println("-- Server --");
+        properties = new Properties();
+        propertiesFileName = "server.config";
+
+        try (FileInputStream fileInputStream = new FileInputStream(propertiesFileName)) {
+            properties.load(fileInputStream);
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        conncetionString = "jdbc:postgresql://" +
+                properties.getProperty("server.database_host") + "/" +
+                properties.getProperty("server.database_name");
+
+        Connection conn = DriverManager.getConnection(conncetionString,
+                properties.getProperty("server.database_user"),
+                properties.getProperty("server.database_password"));
+
         numPlayers = 0;
         questionNumber = 0;
 
         questions = new ArrayList<>();
 
-        File file = new File("pytania.txt");
-        FileInputStream fileStream = new FileInputStream(file);
-        InputStreamReader input = new InputStreamReader(fileStream);
-        BufferedReader reader = new BufferedReader(input);
-
-        String line ;
-        boolean line2;
-        while((line = reader.readLine()) != null)
-        {
-            line2 = Boolean.parseBoolean(reader.readLine());
-            //   System.out.println(line + " - >> " + line2);
-            //   System.out.println(q.getQuestion() + " - >> " + q.getAnswear());
-            questions.add(new Question(line, line2));
+        String SQL = "SELECT * FROM questions";
+        try (
+                conn;
+                Statement stmt = conn.createStatement();
+                ResultSet resultSet = stmt.executeQuery(SQL)) {
+            while(resultSet.next()){
+                questions.add(new Question(resultSet.getString(2), resultSet.getBoolean(3)));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
+        Collections.shuffle(questions);
 
         numberOfQuestions = questions.size();
 

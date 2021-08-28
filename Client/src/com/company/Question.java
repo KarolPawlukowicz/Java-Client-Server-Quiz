@@ -1,14 +1,13 @@
 package com.company;
-
 import java.io.Serializable;
 
 public class Question implements Serializable {
     private String question;
-    private boolean answear;
+    private boolean answer;
 
     public Question(String question, boolean answer){
         this.question = question;
-        this.answear = answer;
+        this.answer = answer;
     }
 
     public String getQuestion() {
@@ -19,11 +18,11 @@ public class Question implements Serializable {
         this.question = question;
     }
 
-    public void setAnswear(boolean answear) {
-        this.answear = answear;
+    public void setAnswer(boolean answear) {
+        this.answer = answear;
     }
 
-    public boolean getAnswear() {
-        return answear;
+    public boolean getAnswer() {
+        return answer;
     }
 }
