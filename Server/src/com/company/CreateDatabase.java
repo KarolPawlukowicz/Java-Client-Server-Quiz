@@ -4,8 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class CreateDatabase {
@@ -36,7 +34,7 @@ public class CreateDatabase {
     }
 
     public void createDatabase(){
-        String sql = "CREATE TABLE questions2 " +
+        String sql = "CREATE TABLE questions " +
                 "(id INTEGER not NULL, " +
                 " question VARCHAR(255), " +
                 " answer boolean, " +
@@ -57,11 +55,11 @@ public class CreateDatabase {
 
     public void fillTable(){
         String INSER_DATA[] = {
-                "INSERT INTO questions2 (id, question, answer) VALUES (1, \'The earth is the fourth planet from the sun.\', \'false\')",
-                "INSERT INTO questions2 (id, question, answer) VALUES (2, \'There are three rivers in Saudi Arabia.\', \'false\')",
-                "INSERT INTO questions2 (id, question, answer) VALUES (3, \'The Great Wall of China is visible from space.\', \'false\')",
-                "INSERT INTO questions2 (id, question, answer) VALUES (3, \'The Great Wall of China is visible from space.\', \'false\')",
-                "INSERT INTO questions2 (id, question, answer) VALUES (5, \'M&M stands for Mars and Moordale.\', \'false\')"
+                "INSERT INTO questions (id, question, answer) VALUES (1, \'The earth is the fourth planet from the sun.\', \'false\')",
+                "INSERT INTO questions (id, question, answer) VALUES (2, \'There are three rivers in Saudi Arabia.\', \'false\')",
+                "INSERT INTO questions (id, question, answer) VALUES (3, \'The Great Wall of China is visible from space.\', \'false\')",
+                "INSERT INTO questions (id, question, answer) VALUES (4, \'The Great Wall of China is visible from space.\', \'false\')",
+                "INSERT INTO questions (id, question, answer) VALUES (5, \'M&M stands for Mars and Moordale.\', \'false\')"
         };
 
         for(int i = 0 ; i < INSER_DATA.length ; i++){
